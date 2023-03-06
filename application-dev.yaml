@@ -1,0 +1,43 @@
+database: 
+    - name: "mc0"
+      master:
+        driver: "mysql"
+        databaseSource: "sl_sc2_backend@sl_sc2_mysql_develop:XVPt6eS7r9nHZF8qlfoivy9u@(shopline-foshan-test-4l-sldb.inshopline.com:)/sl_mc_v2?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useSSL=true"
+        maxIdleCount: 2
+        maxOpen: 2
+        maxLifetime: 0
+        maxIdleTime: 0
+      slaves:
+        - driver: "mysql"
+          databaseSource: "sl_sc2_backend@sl_sc2_mysql_develop:XVPt6eS7r9nHZF8qlfoivy9u@(shopline-foshan-test-4l-sldb.inshopline.com:)/sl_mc_v2?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useSSL=true"
+          maxIdleCount: 2
+          maxOpen: 2
+          maxLifetime: 0
+          maxIdleTime: 0
+        - driver: "mysql"
+          databaseSource: "sl_sc2_backend@sl_sc2_mysql_develop:XVPt6eS7r9nHZF8qlfoivy9u@(shopline-foshan-test-4l-sldb.inshopline.com:)/sl_mc_v2?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useSSL=true"
+          maxIdleCount: 2
+          maxOpen: 2
+          maxLifetime: 0
+          maxIdleTime: 0
+    - name: "mc1"
+      master:
+        driver: "mysql"
+        databaseSource: "sl_sc2_backend@sl_sc2_mysql_develop:XVPt6eS7r9nHZF8qlfoivy9u@(shopline-foshan-test-4l-sldb.inshopline.com:3307)/sl_mc1_v2?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useSSL=true"
+        maxIdleCount: 2
+        maxOpen: 2
+        maxLifetime: 0
+        maxIdleTime: 0
+      slaves:
+        - driver: "mysql"
+          databaseSource: "sl_sc2_backend@sl_sc2_mysql_develop:XVPt6eS7r9nHZF8qlfoivy9u@(shopline-foshan-test-4l-sldb.inshopline.com:3307)/sl_mc1_v2?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useSSL=true"
+          maxIdleCount: 2
+          maxOpen: 2
+          maxLifetime: 0
+          maxIdleTime: 0
+        - driver: "mysql"
+          databaseSource: "sl_sc2_backend@sl_sc2_mysql_develop:XVPt6eS7r9nHZF8qlfoivy9u@(shopline-foshan-test-4l-sldb.inshopline.com:3307)/sl_mc1_v2?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useSSL=true"
+          maxIdleCount: 2
+          maxOpen: 2
+          maxLifetime: 0
+          maxIdleTime: 0
