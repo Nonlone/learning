@@ -116,7 +116,7 @@ export MAVEN_OPTS="-classpath $CLASSPATH"
 # export PATH="$JAVA_HOME/bin:$PATH"
 
 # maven
-MAVEN_PATH=/usr/local/Cellar/maven
+MAVEN_PATH=/opt/homebrew/Cellar/maven
 LIST_FILES=($(ls $MAVEN_PATH))
 export M2_HOME="$MAVEN_PATH/$LIST_FILES"
 
