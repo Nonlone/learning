@@ -7,6 +7,9 @@ import (
 	"time"
 
 	"github.com/jmoiron/sqlx"
+	"github.com/nacos-group/nacos-sdk-go/clients"
+	"github.com/nacos-group/nacos-sdk-go/common/constant"
+	"github.com/nacos-group/nacos-sdk-go/vo"
 	"github.com/spf13/viper"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -110,8 +113,8 @@ func main() {
 	fmt.Printf("slice: %v \n", slice2)
 
 	v := viper.New()
-	v.SetConfigName("application-dev") // name of config file (without extension)
-	v.SetConfigType("yaml")
+	v.SetConfigName("application") // name of config file (without extension)
+	v.SetConfigType("properties")
 	v.AddConfigPath(".")
 
 	if err := v.ReadInConfig(); err != nil {
@@ -119,12 +122,49 @@ func main() {
 	}
 
 	database := []databaseCluster{}
-	v.UnmarshalKey("database",&database);
+	v.UnmarshalKey("database", &database)
 
-	jsonValue,_ := json.Marshal(database);
+	jsonValue, _ := json.Marshal(database)
 
 	fmt.Printf("database: %v \n", string(jsonValue))
 
+	springDataBase := v.Get("spring.shardingsphere.datasource")
+	jsonValue, _ = json.Marshal(springDataBase)
+
+	fmt.Printf("springDatabase: %v \n", string(jsonValue))
+
+	clientConfig := *constant.NewClientConfig(
+		constant.WithNamespaceId("develop"), //当namespace是public时，此处填空字符串。
+		constant.WithTimeoutMs(5000),
+		constant.WithNotLoadCacheAtStart(true),
+		constant.WithLogDir("/tmp/nacos/log"),
+		constant.WithCacheDir("/tmp/nacos/cache"),
+		constant.WithLogLevel("debug"),
+	)
+
+	// 创建serverConfig的另一种方式
+	serverConfigs := []constant.ServerConfig{
+		*constant.NewServerConfig(
+			"nacos-test-fs.inshopline.com",
+			8080,
+			constant.WithScheme("nacos"),
+		),
+	}
+
+	// 创建动态配置客户端的另一种方式 (推荐)
+	configClient, err := clients.NewConfigClient(
+		vo.NacosClientParam{
+			ClientConfig:  &clientConfig,
+			ServerConfigs: serverConfigs,
+		},
+	)
+
+	content, err := configClient.GetConfig(vo.ConfigParam{
+		DataId: "sc-message-center-admin",
+		Group:  "sc-message-center-admin"})
+
+
+	fmt.Printf("config content: %v \n",content);
 
 	// fmt.Printf("viper.Get: %v \n",v.Get("database"));
 
@@ -134,7 +174,7 @@ func main() {
 }
 
 type databaseNode struct {
-	Driver          string
+	Driver         string
 	DatabaseSource string
 	MaxIdleCount   int
 	MaxOpen        int
@@ -142,10 +182,8 @@ type databaseNode struct {
 	MaxIdleTime    time.Duration
 }
 
-type databaseCluster struct { 
-	Name string
+type databaseCluster struct {
+	Name   string
 	Master *databaseNode
 	Slaves *[]databaseNode
 }
-
-
