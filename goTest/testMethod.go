@@ -2,10 +2,9 @@ package main
 
 import (
 	"fmt"
+	. "goTest/helper"
+	"goTest/helper/packagex"
 	"goTest/main2"
-	"reflect"
-	"runtime"
-	"strings"
 )
 
 func testMethodA(){
@@ -19,13 +18,7 @@ func main()  {
 	t()
 
 
-	fmt.Println(GetPackageName(main))
+	fmt.Println(packagex.GetPackageNameByFunc(EMPTY_FUNC))
 
 }
 
-
-func GetPackageName(temp interface{}) string {
-    strs := strings.Split((runtime.FuncForPC(reflect.ValueOf(temp).Pointer()).Name()), ".")
-    strs = strings.Split(strs[len(strs)-2], "/")
-    return strs[len(strs)-1]
-}
