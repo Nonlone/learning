@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"math/rand"
+	"strings"
 	"time"
 
 	"github.com/jmoiron/sqlx"
@@ -146,8 +147,7 @@ func main() {
 	serverConfigs := []constant.ServerConfig{
 		*constant.NewServerConfig(
 			"nacos-test-fs.inshopline.com",
-			8080,
-			constant.WithScheme("nacos"),
+			6801,
 		),
 	}
 
@@ -160,13 +160,17 @@ func main() {
 	)
 
 	content, err := configClient.GetConfig(vo.ConfigParam{
-		DataId: "sc-message-center-admin",
-		Group:  "sc-message-center-admin"})
+		DataId: "application",
+		Group:  "admin-app-service"})
 
 
-	fmt.Printf("config content: %v \n",content);
-
-	// fmt.Printf("viper.Get: %v \n",v.Get("database"));
+	fmt.Printf("config content: %v \n",content)
+	v = viper.New()
+	v.SetConfigType("YAML")
+	v.ReadConfig(strings.NewReader(content))
+	
+	databaseContent,_ := json.Marshal(v.Get("database"))
+	fmt.Printf("viper.Get: %v \n",string(databaseContent));
 
 	// DBInit()
 	// RouterInit();
