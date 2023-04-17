@@ -18,6 +18,7 @@ require (
 	github.com/goccy/go-json v0.10.0 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
+	github.com/jasonming/go-fuckerr/try v1.1.0
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/jmespath/go-jmespath v0.0.0-20180206201540-c2b33e8439af // indirect

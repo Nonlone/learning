@@ -6,6 +6,8 @@ import (
 	"math/rand"
 	"strings"
 	"time"
+	"os"
+	"github.com/jasonming/go-fuckerr/try"
 
 	"github.com/jmoiron/sqlx"
 	"github.com/nacos-group/nacos-sdk-go/clients"
@@ -174,6 +176,11 @@ func main() {
 
 	// DBInit()
 	// RouterInit();
+
+
+	fmt.Println()
+	fmt.Println(try.Must(os.Getwd()))
+	fmt.Println(try.Must(os.Executable()))
 
 }
 
